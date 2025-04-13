@@ -11,6 +11,3 @@ Use parentheses in macros for safety.
 Prefer const for defining constants.
 4. Conditionals and Loops
 Always use braces {} for conditionals and loops.
-5. General Rules
-Write one statement per line.
-Keep functions short and focused on a single task.
