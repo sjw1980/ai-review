@@ -31,7 +31,7 @@ if __name__ == "__main__":
     GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
     genai.configure(api_key=GOOGLE_API_KEY)
-    model = genai.GenerativeModel('gemini-2.0-flash')  # 모델 이름은 필요에 따라 변경 가능
+    model = genai.GenerativeModel('gemini-2.5-pro-exp-03-25')  # 모델 이름은 필요에 따라 변경 가능
     generation_config = {
         "temperature": 0.0,
         "top_p": 1,

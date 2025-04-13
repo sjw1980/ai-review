@@ -3,7 +3,7 @@
 .env
 
 # reports
-report_*.md
+reports_*
 
 # python cache
 __pycache__
