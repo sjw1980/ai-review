@@ -1,0 +1,6 @@
+
+# secret information
+.env
+
+# reports
+report_*.md
