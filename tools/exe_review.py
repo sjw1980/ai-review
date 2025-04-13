@@ -2,6 +2,8 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 from split_function import extract_functions_from_c_code
 import os
+from datetime import datetime
+
 
 def set_working_directory():
     # Get the absolute path of the currently executing Python file
@@ -47,6 +49,14 @@ if __name__ == "__main__":
     report_format = f.read()
     f.close()
 
+    # Get the current date and time
+    now = datetime.now()
+    # Format the date and time as a string
+    timestamp = now.strftime("%Y-%m-%d_%H-%M")
+    # Create a directory with the timestamp
+    directory = f"reports_{timestamp}"
+
+
     for index, function in enumerate(functions):
 
         prompt = f"""
@@ -63,5 +73,9 @@ if __name__ == "__main__":
 
         response = model.generate_content(prompt, generation_config=generation_config)
         # print(response.text)
-        with open(f"report_{index}.md", "w") as file:
+        # make folder with date and time and save the report
+        
+        os.makedirs(directory, exist_ok=True)
+        # Save the report in the directory
+        with open(f"{directory}/report_{index}.md", "w") as file:
             file.write(response.text)

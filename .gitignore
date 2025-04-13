@@ -4,3 +4,6 @@
 
 # reports
 report_*.md
+
+# python cache
+__pycache__
