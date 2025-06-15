@@ -31,7 +31,9 @@ if __name__ == "__main__":
     GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
     genai.configure(api_key=GOOGLE_API_KEY)
-    model = genai.GenerativeModel('gemini-2.5-pro-exp-03-25')  # 모델 이름은 필요에 따라 변경 가능
+    model = genai.GenerativeModel(
+        "gemini-2.0-flash-lite"
+    )  # 모델 이름은 필요에 따라 변경 가능
     generation_config = {
         "temperature": 0.0,
         "top_p": 1,
@@ -39,13 +41,14 @@ if __name__ == "__main__":
         "max_output_tokens": 4096,
     }
 
+
     # convension.md 파일 읽기
-    f = open("./../rules/convension.md", "r")
+    f = open("./../rules/convension.md", "r", encoding="utf-8")
     convension = f.read()
     f.close()
 
     # reports_format.md 파일 읽기
-    f = open("./../rules/reports_format.md", "r")
+    f = open("./../rules/reports_format.md", "r", encoding="utf-8")
     report_format = f.read()
     f.close()
 
@@ -56,9 +59,8 @@ if __name__ == "__main__":
     # Create a directory with the timestamp
     directory = f"reports_{timestamp}"
 
-
-    for index, function in enumerate(functions):
-
+    print("Generating reports...")
+    for name, function in functions:
         prompt = f"""
  You are an expert in C programming style and conventions. Analyze the following C function based on the given coding conventions and generate a compliance report.
 ### Coding Conventions:
@@ -77,5 +79,5 @@ if __name__ == "__main__":
         
         os.makedirs(directory, exist_ok=True)
         # Save the report in the directory
-        with open(f"{directory}/report_{index}.md", "w") as file:
+        with open(f"{directory}/report_{name}.md", "w", encoding="utf-8") as file:
             file.write(response.text)
