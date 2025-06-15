@@ -6,13 +6,18 @@ def extract_functions_from_c_code(c_code):
     """
     # 정규 표현식으로 함수 정의를 찾음
     function_pattern = re.compile(
-        r'(?:(?:static|extern|inline|const|unsigned|signed|void|int|float|double|char)[\w\s\*]+)?\s+[\w\s\*]+\s+\w+\s*\([^)]*\)\s*\{(?:[^{}]*|\{[^{}]*\})*\}',
+        r'([a-zA-Z_][\w]*)\s*\([^)]*\)\s*\{(?:[^{}]*|\{[^{}]*\})*\}',
         re.DOTALL
     )
     
     # 매칭된 모든 함수 정의를 리스트로 반환
-    functions = function_pattern.findall(c_code)
-    return functions
+    results = []
+    for match in function_pattern.finditer(c_code):
+        func_code = match.group(0)
+        func_name = match.group(1)
+        results.append((func_name, func_code))
+
+    return results
 
 if __name__ == "__main__":
     c_code_example = """
@@ -35,5 +40,5 @@ if __name__ == "__main__":
     functions = extract_functions_from_c_code(c_code_example)
 
     # 결과 출력
-    for i, func in enumerate(functions, start=1):
-        print(f"Function {i}:\n{func}\n")
+    for name, code in functions:
+        print(f"Function name: {name}\nFunction code:\n{code}\n")

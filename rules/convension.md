@@ -1,13 +1,5 @@
-1. Naming Rules
-Variables: Use snake_case (lowercase with underscores). start with noun.
-Functions: Use snake_case. start with verb.
-Constants/Macros: Use UPPER_CASE.
-2. Function Declaration and Definition
-Write return type, function name, and parameters on the same line.
-Add a single space between the return type and function name.
-Function should be in 100 lines
-3. Macros and Constants
-Use parentheses in macros for safety.
-Prefer const for defining constants.
-4. Conditionals and Loops
-Always use braces {} for conditionals and loops.
+변수명: Use snake_case (lowercase with underscores). start with noun.
+함수명: Use snake_case. start with verb.
+표현: Use positive
+상수/매크로: Use UPPER_CASE.
+함수라인수: Function should be in 100 lines

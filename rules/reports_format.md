@@ -1,14 +1,5 @@
-# Total
-| No | Result |
-| --- | --- |
-| Total | Fail |
-
-
-# Detain violations
-| No | Result | Information |
-| --- | --- | --- |
-| Naming Rules | Fail | Suggested fix: Rename to `calculate_sum`. |
-| Function Declaration and Definition | Fail | Suggested fix: Use `int result = a + b;` |
-| Macros and Constants | Pass | |
-| Conditionals and Loops | Pass | |
-
+| 구분       | 수정 제안                                    |
+| ---------- | -------------------------------------------- |
+| 함수명     | CalculateSum -> calculate_sum                |
+| 표현       | Closed_door -> open_door                     |
+| 함수라인수 | 함수 길이가 100 라인이 넘습니다. 줄여주세요. |
