@@ -1,0 +1,7 @@
+{
+  "main": "78e60d36aefb4e252d1a814d1ad16f033d7431e22a8dbefc673d810549edca72",
+  "generateRandomNumber": "5a8506525b761203a131d4b4e69fec54fc070e82731927c3ca04c758d3c9f214",
+  "getUserGuess": "8d1f7188f0117231d36c4fd4cd97049ae99f986aebca68ea31459e60864b8f44",
+  "compareGuess": "07e790027a734ada0c88a03b98b8b1d9e0c9f39af8a7a0804bbcae33fbd8516f",
+  "printGameRules": "21d920e677a3783c2e4aaf2c0616663dc78713dde5cdd3c5b803c0eb13ee4f17"
+}

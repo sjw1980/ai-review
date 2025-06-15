@@ -1,8 +1,45 @@
 import google.generativeai as genai
 from dotenv import load_dotenv
 from split_function import extract_functions_from_c_code
+import hashlib
+import json
 import os
 from datetime import datetime
+
+
+
+HASH_DB_PATH = "function_hashes.json"
+
+def get_function_hash(function_code: str) -> str:
+    """함수 코드의 SHA256 해시값을 반환"""
+    return hashlib.sha256(function_code.encode('utf-8')).hexdigest()
+
+def load_hash_db(path=HASH_DB_PATH):
+    """해시 DB 파일을 로드 (없으면 빈 dict 반환)"""
+    if os.path.exists(path):
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+def save_hash_db(db, path=HASH_DB_PATH):
+    """해시 DB 파일 저장"""
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(db, f, ensure_ascii=False, indent=2)
+
+def is_function_already_processed(func_name: str, func_code: str, db=None) -> bool:
+    """동일한 함수명과 해시가 DB에 있는지 확인"""
+    if db is None:
+        db = load_hash_db()
+    func_hash = get_function_hash(func_code)
+    return db.get(func_name) == func_hash
+
+def add_function_hash(func_name: str, func_code: str, db=None):
+    """함수명과 해시를 DB에 추가 및 저장"""
+    if db is None:
+        db = load_hash_db()
+    func_hash = get_function_hash(func_code)
+    db[func_name] = func_hash
+    save_hash_db(db)
 
 
 def set_working_directory():
@@ -59,8 +96,16 @@ if __name__ == "__main__":
     # Create a directory with the timestamp
     directory = f"reports_{timestamp}"
 
+    db = load_hash_db()
     print("Generating reports...")
     for name, function in functions:
+        if is_function_already_processed(name, function, db):
+            print("이미 처리된 함수입니다.")
+            continue
+        else:
+            print("새로운 함수입니다. DB에 저장합니다.")
+            add_function_hash(name, function, db)
+
         prompt = f"""
  You are an expert in C programming style and conventions. Analyze the following C function based on the given coding conventions and generate a compliance report.
 ### Coding Conventions:
